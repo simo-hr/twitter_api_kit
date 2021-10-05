@@ -1,6 +1,6 @@
 # twitter_api_kit
 
-add Credential.php file.
+add Credential.php file in root dir.
 
 ```php
 <?php
