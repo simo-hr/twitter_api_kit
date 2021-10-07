@@ -79,4 +79,23 @@ class TwitterApiService
             echo $e->getMessage();
         }
     }
+
+    public function searchStream()
+    {
+        $endPoint =  'https://api.twitter.com/2/tweets/search/stream';
+        $requests =  [
+            'headers' => ['Authorization' => 'Bearer ' . $this->bearToken],
+            'query' => [
+                'expansions' => 'author_id',
+                'user.fields' => 'description,public_metrics',
+            ],
+            'stream' => true,
+            'verify' => false,
+        ];
+        try {
+            return $this->client->request('GET', $endPoint, $requests)->getBody();
+        } catch (RequestException $e) {
+            echo $e->getMessage();
+        }
+    }
 }
