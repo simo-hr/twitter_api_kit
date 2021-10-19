@@ -80,15 +80,12 @@ class TwitterApiService
         }
     }
 
-    public function searchStream()
+    public function searchStream(array $query)
     {
         $endPoint =  'https://api.twitter.com/2/tweets/search/stream';
         $requests =  [
             'headers' => ['Authorization' => 'Bearer ' . $this->bearToken],
-            'query' => [
-                'expansions' => 'author_id',
-                'user.fields' => 'description,public_metrics',
-            ],
+            'query' => $query,
             'stream' => true,
             'verify' => false,
         ];
