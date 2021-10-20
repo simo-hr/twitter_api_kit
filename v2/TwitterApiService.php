@@ -59,7 +59,7 @@ class TwitterApiService
         $requests = [
             'headers' => ['Authorization' => 'Bearer ' . $this->bearToken],
             'query' => ['dry_run' => $dryRun],
-            'json' => ['add' => [$rules]]
+            'json' => ['add' => $rules]
         ];
         try {
             $result = $this->client->request('POST', $endPoint, $requests)->getBody()->getContents();
