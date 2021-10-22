@@ -79,6 +79,33 @@ class TwitterApiService
             echo $e->getMessage();
         }
     }
+
+    public function deleteStreamRules(array $ruleIds)
+    {
+        $endPoint =  'https://api.twitter.com/2/tweets/search/stream/rules';
+        $requests = [
+            'headers' => ['Authorization' => 'Bearer ' . $this->bearToken],
+            'json' => ['delete' => ['ids' => $ruleIds]]
+        ];
+        try {
+            $result = $this->client->request('POST', $endPoint, $requests)->getBody()->getContents();
+            $jsonResult = json_decode($result);
+            if ($jsonResult->meta->summary->deleted) {
+                return [
+                    'data' => $jsonResult,
+                    'success' => true,
+                ];
+            } else {
+                return [
+                    'message' => $jsonResult->errors,
+                    'success' => false,
+                ];
+            }
+        } catch (RequestException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     public function getStreamRules()
     {
         $endPoint =  'https://api.twitter.com/2/tweets/search/stream/rules';
